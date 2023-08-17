@@ -34,6 +34,8 @@ counter = 0
 
 try:
     for line in sys.stdin:
+        # if re.match(pattern, line) is None:
+        #     continue
         line = line.strip()
         line = line.split()
         size += int(line[-1])
@@ -47,3 +49,4 @@ try:
             counter = 0
 except KeyboardInterrupt:
     print_stats(size, status_codes)
+    raise
