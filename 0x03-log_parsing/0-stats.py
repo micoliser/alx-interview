@@ -32,8 +32,8 @@ status_codes = {
 }
 counter = 0
 
-for line in sys.stdin:
-    try:
+try:
+    for line in sys.stdin:
         line = line.strip()
         line = line.split()
         size += int(line[-1])
@@ -41,10 +41,9 @@ for line in sys.stdin:
             status_codes[line[-2]] += 1
         except KeyError:
             pass
-        print(size, status_codes)
         counter += 1
         if counter == 10:
             print_stats(size, status_codes)
             counter = 0
-    except KeyboardInterrupt:
-        print_stats(size, status_codes)
+except KeyboardInterrupt:
+    print_stats(size, status_codes)
