@@ -13,11 +13,8 @@ def print_stats(size, status_codes):
             print("{}: {}".format(key, status_codes[key]))
 
 
-pattern = (
-    r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s-\s\['
-    r'\d{2}/[A-Za-z]{3}/\d{4}:\d{2}:\d{2}:\d{2}\s\+\d{4}\]'
-    r'\s"GET\s/projects/260\sHTTP/1\.1"\s\d{3}\s\d+$'
-)
+pattern = re.compile(
+    r"([0-2]?[0-9]?[0-9]\.[0-2]?[0-9]?[0-9]\.[0-2]?[0-9]?[0-9]\.[0-2]?[0-9]?[0-9])\ \-\ \[([0-9]{4}\-[0-1]{1}[0-9]{1}\-[0-3]{1}[0-9]{1}\ [0-2]{1}[0-9]{1}\:[0-5]{1}[0-9]{1}\:[0-5]{1}[0-9]{1}\.[0-9]{6})\]\ (\"GET\ \/projects\/260\ HTTP\/1\.1\")\ (200|301|400|401|403|404|405|500)\ ([1-9][0-9]*)")
 
 size = 0
 status_codes = {
@@ -34,8 +31,9 @@ counter = 0
 
 try:
     for line in sys.stdin:
-        # if re.match(pattern, line) is None:
-        #     continue
+        counter += 1
+        if re.match(pattern, line) is None:
+            continue
         line = line.strip()
         line = line.split()
         size += int(line[-1])
@@ -43,7 +41,6 @@ try:
             status_codes[line[-2]] += 1
         except KeyError:
             pass
-        counter += 1
         if counter == 10:
             print_stats(size, status_codes)
             counter = 0
