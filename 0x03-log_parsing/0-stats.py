@@ -31,7 +31,6 @@ counter = 0
 
 try:
     for line in sys.stdin:
-        counter += 1
         if re.match(pattern, line) is None:
             continue
         line = line.strip()
@@ -41,6 +40,7 @@ try:
             status_codes[line[-2]] += 1
         except KeyError:
             pass
+        counter += 1
         if counter == 10:
             print_stats(size, status_codes)
             counter = 0
