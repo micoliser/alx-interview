@@ -68,14 +68,14 @@ def check_data(data, index):
     return (False, )
 
 
-def validUTF8(bin_data):
+def validUTF8(data):
     """ checks a data if it is valid utf-8 """
 
-    if len(bin_data) == 0:
+    if len(data) == 0:
         return
 
     i = ('', 0)
-    # bin_data = [bin(ch)[2:].zfill(8) for ch in data]
+    bin_data = [bin(ch)[2:].zfill(8) for ch in data]
     while True:
         i = check_data(bin_data, i[1])
         if not i[0]:
