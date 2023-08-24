@@ -48,7 +48,6 @@ def validUTF8(data):
             bin_data.append(bin(ch)[2:].zfill(8))
     except TypeError:
         return False
-    print(bin_data)
     while True:
         i = check_data(bin_data, i[1])
         if not i[0]:
