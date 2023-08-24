@@ -40,7 +40,15 @@ def validUTF8(data):
         return False
 
     i = ('', 0)
-    bin_data = [bin(ch)[2:].zfill(8) for ch in data]
+    bin_data = []
+    try:
+        for ch in data:
+            if ch < 0 or ch > 1114111:
+                return False
+            bin_data.append(bin(ch)[2:].zfill(8))
+    except TypeError:
+        return False
+    print(bin_data)
     while True:
         i = check_data(bin_data, i[1])
         if not i[0]:
