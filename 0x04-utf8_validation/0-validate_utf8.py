@@ -37,7 +37,7 @@ def validUTF8(data):
     """ checks a data if it is valid utf-8 """
 
     if len(data) == 0:
-        return
+        return False
 
     i = ('', 0)
     bin_data = [bin(ch)[2:].zfill(8) for ch in data]
